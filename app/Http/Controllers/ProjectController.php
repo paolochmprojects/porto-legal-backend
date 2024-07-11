@@ -79,11 +79,11 @@ class ProjectController extends Controller
     }
 
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $projectId)
     {
 
-        $validator = Validator::make(['id' => $id], [
-            'id' => ['uuid', 'exists:projects,id']
+        $validator = Validator::make(['projectId' => $projectId], [
+            'projectId' => ['uuid', 'exists:projects,id']
         ]);
 
         if ($validator->fails()) {
@@ -94,9 +94,8 @@ class ProjectController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'title' => ['string', 'max:64'],
+            'title' => ['required', 'string', 'max:64'],
             'description' => ['string', 'max:255'],
-            'user_id' => ['uuid', 'exists:users,id'],
         ]);
 
 
@@ -107,9 +106,9 @@ class ProjectController extends Controller
             ], 422);
         }
 
-        $data = $request->only('title', 'description', 'user_id');
+        $data = $request->only('title', 'description');
 
-        $project = Project::find($id);
+        $project = Project::find($projectId);
 
         if (!$project) {
             return response()->json([
@@ -125,10 +124,10 @@ class ProjectController extends Controller
         ]);
     }
 
-    function destroy($id){
+    function destroy($projectId){
 
-        $validator = Validator::make(['id' => $id], [
-            'id' => ['uuid', 'exists:projects,id']
+        $validator = Validator::make(['projectId' => $projectId], [
+            'projectId' => ['uuid', 'exists:projects,id']
         ]);
 
         if ($validator->fails()) {
@@ -138,7 +137,7 @@ class ProjectController extends Controller
             ], 422);
         }
 
-        $project = Project::find($id);
+        $project = Project::find($projectId);
         $project->delete();
 
         return response()->json([

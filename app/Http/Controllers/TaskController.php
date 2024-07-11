@@ -69,7 +69,7 @@ class TaskController extends Controller
         $validator = Validator::make($request->all(), [
             'title' => ['required', 'string', 'min:3', 'max:255'],
             'description' => ['nullable', 'string', 'min:3', 'max:255'],
-            'status' => ['required', 'string', 'in:todo,doing,done'],
+            'status' => ['required', 'string', 'in:TODO,IN_PROGRESS,DONE,CANCELED'],
         ]);
 
         if ($validator->fails()) {
