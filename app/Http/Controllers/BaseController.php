@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 /**
  * @OA\Info(
  *      title="API Swagger",
- *      version="1.0",
- *      description="API CRUD Students"
- * )
- * 
- * @OA\Server(
- *      url="http://localhost:8000",
+ *      version="0.0.1",
+ *      description="API CRUD desarrollado en laravel con docker, para la gestión de proyectos y tareas de los usuarios authenticados",
+ *      @OA\Contact(
+ *          name="Paolo Charca Mamani",
+ *          email="paolo.dev.projects@gmail.com",
+ *          url="https://paolochm.netlify.app"
+ *      ),
  * )
  * 
  * @OA\SecurityScheme(
