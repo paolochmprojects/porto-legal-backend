@@ -28,7 +28,7 @@ docker exec porto-legal-backend-1 php artisan migrate
 
 o en todo caso usar el la extención devcontainer de vscode y realizar las operaciones dentro del contenedor sin anteponer los comandos.
 
-### correr las migraciones
+### Correr las migraciones
 
 Se debe ejecutar.
 
@@ -41,7 +41,7 @@ o dentro del contenedor
 php artisan migrate
 ```
 
-### correr la aplicación
+### Correr la aplicación
 
 Se debe ejecutar el comando habitual de artisan serve con la bandera --host 0.0.0.0 para que se exponga correctamente al aplicación.
 
@@ -60,7 +60,7 @@ para el resto de comandos es la misma expresión anteponer el comando docker exe
 ```bash
 docker exec -it porto-legal-backend-1 /bin/bash
 ```
-esto permitirá interactuar con el contenedor desde la terminal.
+esto permitirá interactuar con el contenedor desde la terminal y ejecutar los comando de php y composer en el contenedor.
 
 ## Documentación
 
