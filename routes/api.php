@@ -16,6 +16,7 @@ Route::post('/register', [RegisterController::class, 'store']);
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::get('/me', [AuthController::class, 'me'])->middleware("auth:api")->name('me');
 Route::get('/refresh', [AuthController::class, 'refresh'])->middleware("auth:api")->name('refresh');
+Route::get('/logout', [AuthController::class, 'logout'])->middleware("auth:api")->name('logout');
 
 // Projects
 Route::post('/projects', [\App\Http\Controllers\ProjectController::class, 'store'])->middleware("auth:api");
