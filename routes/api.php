@@ -21,5 +21,13 @@ Route::get('/refresh', [AuthController::class, 'refresh'])->middleware("auth:api
 Route::post('/projects', [\App\Http\Controllers\ProjectController::class, 'store'])->middleware("auth:api");
 Route::get('/projects', [\App\Http\Controllers\ProjectController::class, 'index'])->middleware("auth:api");
 Route::get('/projects/{id}', [\App\Http\Controllers\ProjectController::class, 'show'])->middleware("auth:api");
-Route::patch('/projects/{id}', [\App\Http\Controllers\ProjectController::class, 'update'])->middleware("auth:api");
+Route::put('/projects/{id}', [\App\Http\Controllers\ProjectController::class, 'update'])->middleware("auth:api");
 Route::delete('/projects/{id}', [\App\Http\Controllers\ProjectController::class, 'destroy'])->middleware("auth:api");
+
+
+// Tasks
+Route::post('/projects/{id}/tasks', [\App\Http\Controllers\TaskController::class, 'store'])->middleware("auth:api");
+Route::get('/projects/{id}/tasks', [\App\Http\Controllers\TaskController::class, 'index'])->middleware("auth:api");
+Route::get('/projects/{id}/tasks/{task}', [\App\Http\Controllers\TaskController::class, 'show'])->middleware("auth:api");
+Route::put('/projects/{id}/tasks/{task}', [\App\Http\Controllers\TaskController::class, 'update'])->middleware("auth:api");
+Route::delete('/projects/{id}/tasks/{task}', [\App\Http\Controllers\TaskController::class, 'destroy'])->middleware("auth:api");
