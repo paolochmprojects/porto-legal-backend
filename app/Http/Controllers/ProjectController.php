@@ -52,4 +52,25 @@ class ProjectController extends Controller
             'data' => $newProject
         ]);
     }
+
+    function destroy($id){
+
+        $validator = Validator::make(['id' => $id], [
+            'id' => ['uuid', 'exists:projects,id']
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => 'Validation failed',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        $project = Project::find($id);
+        $project->delete();
+
+        return response()->json([
+            'message' => 'Project deleted successfully'
+        ]);
+    }
 }

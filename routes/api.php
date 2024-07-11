@@ -19,3 +19,4 @@ Route::get('/refresh', [AuthController::class, 'refresh'])->middleware("auth:api
 
 // Projects
 Route::post('/projects', [\App\Http\Controllers\ProjectController::class, 'store'])->middleware("auth:api");
+Route::delete('/projects/{id}', [\App\Http\Controllers\ProjectController::class, 'destroy'])->middleware("auth:api");
