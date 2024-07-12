@@ -475,6 +475,27 @@ class TaskController extends Controller
      *     path="/api/projects/{projectId}/tasks/{taskId}",
      *     summary="Delete task",
      *     tags={"Tasks"},
+     *     security={{"bearerAuth": {}}},
+     *     @OA\Parameter(
+     *          name="projectId",
+     *          in="path",
+     *          required=true,
+     *          description="Project ID",
+     *          @OA\Schema(
+     *              type="string",
+     *              example="a1b2c3d4-e5f6-g7h8-i9j0-k1l2m3n4o5p6"
+     *          )
+     *      ),
+     *     @OA\Parameter(
+     *          name="taskId",
+     *          in="path",
+     *          required=true,
+     *          description="Task ID",
+     *          @OA\Schema(
+     *              type="string",
+     *              example="a1b2c3d4-e5f6-g7h8-i9j0-k1l2m3n4o5p6"
+     *          )
+     *      ),
      *     @OA\Response(
      *          response=200,
      *          description="OK",
