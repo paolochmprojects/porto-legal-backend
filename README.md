@@ -4,14 +4,14 @@
 
 ## Descripción
 
-El proyecto fue desarrollado sobre la imagen oficial de php en docker hub [php:8.3-cli](https://hub.docker.com/layers/library/php/8.3-cli/images/sha256-fa9d0d6d4def5fb95c76df2378589a76f3056728bab022035969cfe19f55b7f8?context=explore) y laravel en su version 11 acompañado de una base de datos MySQL, también obtenida de pagina oficial de docker hub [mysql:9.0.0](https://hub.docker.com/layers/library/mysql/9.0.0/images/sha256-856aa5f8c4d6fc5b0c27ffa97d308343c323c9ec2e3d25d80401c2f595e9bb4d?context=explore)
+El proyecto fue desarrollado sobre la configuración entrega por Sail [ver documentación](https://laravel.com/docs/11.x/sail) para laravel con docker, por lo cual se ha generado un archivo docker compose para el despliegue en contenedores, con Mysql como base de datos. 
 
 ### Instrucciones para correr la aplicación en desarrollo (Docker)
 
-Se debe ejecutar el siguiente comando en el directorio del proyecto. En la bandera -p se indica el nombre del stack que se creará puede ser el mismo que el nombre del proyecto u otro. La bandera -f se indica el archivo de docker-compose. la bandera -d se indica que se inicia el contenedor en segundo plano.
+Se debe ejecutar el siguiente comando en el directorio del proyecto. En la bandera -d se indica que se debe ejecutar el stack de contenedores en segundo plano, y el nombre del stack se obtendra del directorio. El nombre de cada contenedor se concadenará con el nombre del directorio y el nombre del servicio dor defecto, por lo cual será tomado por el nombre del directorio, en este caso porto-legal-backend.service.
 
 ```bash
-docker compose -f .devcontainer/docker-compose.yml -p porto-legal up -d
+./vendor/bin/sail up -d
 ```
 
 Una vez ejecutado el comando de arriba, dependiendo de la configuración de los permisos del directorio de la aplicación, puede ser que no permita ser modificado se puede solucionar con chmod.
@@ -20,20 +20,24 @@ Una vez ejecutado el comando de arriba, dependiendo de la configuración de los 
 chmod -R 777 .
 ```
 
-para el desarrollo fuera del contenedor, solo se debe posicionar en el directorio del proyecto y modificar lo necesario. tomado en cuenta que para ejecutar las migraciones y otras operaciones se debe anteponer docker exec y el nombre del contenedor.
+para el desarrollo fuera del contenedor, solo se debe posicionar en el directorio del proyecto y modificar lo necesario. tomado en cuenta que para ejecutar las migraciones y otras operaciones se debe anteponer ./vendor/bin/sail y el comando, desde el directorio del proyecto.
 
 ```bash
-docker exec porto-legal-backend-1 php artisan migrate
+./vendor/bin/sail composer install
+
+./vendor/bin/sail php artisan migrate
+
+./vendor/bin/sail php artisan serve
 ```
 
-o en todo caso usar el la extención devcontainer de vscode y realizar las operaciones dentro del contenedor sin anteponer los comandos.
+o en todo caso usar el la extensión devcontainer de vscode y realizar las operaciones dentro del contenedor sin anteponer los comandos desde la terminal del contenedor.
 
 ### Correr las migraciones
 
 Se debe ejecutar.
 
 ```bash
-docker exec porto-legal-backend-1 php artisan migrate
+./vendor/bin/sail php artisan migrate
 ```
 o dentro del contenedor
 
@@ -46,22 +50,30 @@ php artisan migrate
 Se debe ejecutar el comando habitual de artisan serve con la bandera --host 0.0.0.0 para que se exponga correctamente al aplicación.
 
 ```bash
-docker exec porto-legal-backend-1 php artisan serve --host 0.0.0.0
+./vendor/bin/sail php artisan serve
 ```
 
 o dentro del contenedor con la misma bandera.
 
 ```bash
-php artisan serve --host 0.0.0.0
+php artisan serve
 ```
 
-para el resto de comandos es la misma expresión anteponer el comando docker exec y el nombre del contenedor o tambien se puede utilizar.
+para el resto de comandos es la misma expresión anteponer el comando ./vendor/bin/sail o tambien se puede utilizar.
 
 ```bash
-docker exec -it porto-legal-backend-1 /bin/bash
+docker exec -it porto-legal-backend-laravel.test-1 /bin/bash
 ```
-esto permitirá interactuar con el contenedor desde la terminal y ejecutar los comando de php y composer en el contenedor.
+esto permitirá interactuar con la terminal del contenedor desde la terminal del host y ejecutar los comandos de php y composer en el contenedor directamente.
 
 ## Documentación
 
-Para probar los endpoints en la raiz del proyecto hay un JSON para insomnia o levantar el proyecto en el navegador y navegar [http://localhost:8000/api/documentation](http://localhost:8000/api/documentation) para ver la documentación en swagger.
+Para probar los endpoints en la raiz del proyecto hay un JSON para insomnia o levantar el proyecto en el navegador y navegar [http://localhost/api/documentation](http://localhost/api/documentation) para ver la documentación en swagger.
+
+## Despliegue
+
+Para realizar el despliegue en una VPS, se requiere tener docker y docker compose instalados y cambiar la variable APP_DEBUG en el archivo .env a false, para que se pueda realizar el despliegue correctamente, con los mismos pasos anteriores, si se requiere adicionar mas servicios en el mismo servidor se puede realizar con el siguiente comando.
+
+```bash
+./vendor/bin/sail php artisan sail:add
+```
