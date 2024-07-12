@@ -72,8 +72,37 @@ Para probar los endpoints en la raiz del proyecto hay un JSON para insomnia o le
 
 ## Despliegue
 
-Para realizar el despliegue en una VPS, se requiere tener docker y docker compose instalados y cambiar la variable APP_DEBUG en el archivo .env a false, para que se pueda realizar el despliegue correctamente, con los mismos pasos anteriores, si se requiere adicionar mas servicios en el mismo servidor se puede realizar con el siguiente comando.
+### Usando un VPS
+
+Para realizar el despliegue en una VPS, se requiere tener docker y docker compose instalados, luego actualizando las varables de entorno en el archivo .env para cargarlo en el contenedor de laravel, para que se pueda realizar el despliegue correctamente, por último se debe ejecutar los siguientes pasos para desplegar.
+
+Paso 1: Levantar el stack de contenedores en segundo plano.
+```bash	
+./vendor/bin/sail up -d
+```
+
+Paso 2: Instalar las dependencias con composer.
+```bash
+./vendor/bin/sail composer install
+```
+
+Paso 3: Ejecutar las migraciones.
+```bash
+./vendor/bin/sail php artisan migrate
+```
+
+Paso 4: Ejecutar el servidor.
+```bash
+./vendor/bin/sail php artisan serve
+```
+
+Si se requiere adicionar mas servicios en el mismo servidor se puede realizar con el siguiente comando, a través de sail, y ver que servicios se pueden agregar al stack.
 
 ```bash
 ./vendor/bin/sail php artisan sail:add
 ```
+
+### Usando Railway
+
+Para desplegar el proyecto en Railway, se debe conectar el repo github en Railway,
+
