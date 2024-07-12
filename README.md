@@ -1,6 +1,6 @@
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-# Laravel
+# Porto Legal Backend
 
 ## Descripción
 
@@ -64,4 +64,4 @@ esto permitirá interactuar con el contenedor desde la terminal y ejecutar los c
 
 ## Documentación
 
-Para probar los endpoints en la raiz del proyecto hay un JSON para insomnia.
+Para probar los endpoints en la raiz del proyecto hay un JSON para insomnia o levantar el proyecto en el navegador y navegar [http://localhost:8000/api/documentation](http://localhost:8000/api/documentation) para ver la documentación en swagger.
